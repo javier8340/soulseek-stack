@@ -1,0 +1,25 @@
+# Generado por instalar.sh a partir de plantillas/quadlet/slskd.container
+[Unit]
+Description=slskd (cliente de Soulseek)
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=${SLSKD_IMAGE}
+ContainerName=slskd
+Network=soulseek.network
+# Rootless: el root del contenedor es tu usuario en el host, así que los ficheros quedan a tu nombre.
+PublishPort=${WEB_BIND}:${SLSKD_HTTP_PORT}:5030
+PublishPort=${SLSK_LISTEN_PORT}:${SLSK_LISTEN_PORT}
+Volume=${DATA_DIR}/slskd:/app${VOL_RW}
+Volume=${DOWNLOADS_DIR}:/downloads${VOL_RW}
+Volume=${MUSIC_DIR}:/music:${VOL_RO}
+Environment=TZ=${TZ}
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

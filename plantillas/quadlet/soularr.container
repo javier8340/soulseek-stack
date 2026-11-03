@@ -1,0 +1,24 @@
+# Generado por instalar.sh a partir de plantillas/quadlet/soularr.container
+[Unit]
+Description=Soularr (busca en Soulseek lo que falta en Lidarr)
+Wants=slskd.service lidarr.service
+After=slskd.service lidarr.service
+
+[Container]
+Image=${SOULARR_IMAGE}
+ContainerName=soularr
+Network=soulseek.network
+PublishPort=${WEB_BIND}:${SOULARR_WEBUI_PORT}:8265
+Environment=TZ=${TZ}
+Environment=SCRIPT_INTERVAL=${SOULARR_INTERVAL}
+# /downloads debe ser la misma carpeta que ven slskd y Lidarr (config.ini usa /downloads en ambos)
+Volume=${DATA_DIR}/soularr:/data${VOL_RW}
+Volume=${DOWNLOADS_DIR}:/downloads${VOL_RW}
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

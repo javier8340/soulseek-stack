@@ -1,0 +1,6 @@
+# Generado por instalar.sh. Red común: los contenedores se encuentran por nombre (slskd, lidarr, soularr).
+[Unit]
+Description=Red de slskd, Lidarr y Soularr
+
+[Network]
+NetworkName=soulseek

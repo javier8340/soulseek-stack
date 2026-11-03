@@ -1,0 +1,27 @@
+# Generado por instalar.sh: los cambios aquí se pierden al reinstalar. Edita plantillas/slskd.yml.
+remote_configuration: false
+
+directories:
+  incomplete: /app/incomplete
+  downloads: /downloads
+
+shares:
+  directories:
+    - /music
+
+web:
+  port: 5030
+  authentication:
+    disabled: false
+    username: ${Q_SLSKD_WEB_USERNAME}
+    password: ${Q_SLSKD_WEB_PASSWORD}
+    api_keys:
+      soularr:
+        key: ${Q_SLSKD_API_KEY}
+        role: readwrite
+        cidr: 0.0.0.0/0,::/0
+
+soulseek:
+  username: ${Q_SLSK_USERNAME}
+  password: ${Q_SLSK_PASSWORD}
+  listen_port: ${SLSK_LISTEN_PORT}

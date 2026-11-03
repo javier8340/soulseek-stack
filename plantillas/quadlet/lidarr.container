@@ -1,0 +1,27 @@
+# Generado por instalar.sh a partir de plantillas/quadlet/lidarr.container
+[Unit]
+Description=Lidarr (biblioteca de música)
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=${LIDARR_IMAGE}
+ContainerName=lidarr
+Network=soulseek.network
+PublishPort=${WEB_BIND}:${LIDARR_PORT}:8686
+# La imagen de linuxserver arranca como root y baja a PUID/PGID; con keep-id ese usuario es el tuyo.
+UserNS=keep-id
+Environment=PUID=${HOST_UID}
+Environment=PGID=${HOST_GID}
+Environment=TZ=${TZ}
+Volume=${DATA_DIR}/lidarr:/config${VOL_RW}
+Volume=${MUSIC_DIR}:/music${VOL_RW}
+Volume=${DOWNLOADS_DIR}:/downloads${VOL_RW}
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
